@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ContactsPro
 {
-    internal class ContactSearchService
+    public class ContactSearchService
     {
     }
 }

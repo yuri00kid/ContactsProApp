@@ -6,29 +6,28 @@ using System.Threading.Tasks;
 
 namespace ContactsPro
 {
-    internal class ContactQueryService
+    public class ContactQueryService
     {
         public static void NumberOrSkip()
         {
-            var Contacts = new List<Contacts>();
             int numberOfContacts;
             while (true)
             {
                 string result = IO_Service.NumberOrSkipResult();
                 if (int.TryParse(result, out int number))
                 {
-                    (Contacts, numberOfContacts) = ContactQueryService.IfNumber(number, Contacts);
+                    (Contact.contacts, numberOfContacts) = ContactQueryService.IfNumber(number, Contact.contacts);
                     while (true)
                     {
-                        (Contacts, numberOfContacts) = ContactQueryService.MainMenu(Contacts, numberOfContacts);
+                        (Contact.contacts, numberOfContacts) = ContactQueryService.MainMenu(Contact.contacts, numberOfContacts);
                     }
                 }
                 else if (result.ToLower() == "skip")
                 {
-                    (Contacts, numberOfContacts) = ContactQueryService.IfSkip(Contacts);
+                    (Contact.contacts, numberOfContacts) = ContactQueryService.IfSkip(Contact.contacts);
                     while (true)
                     {
-                        (Contacts, numberOfContacts) = ContactQueryService.MainMenu(Contacts, numberOfContacts);
+                        (Contact.contacts, numberOfContacts) = ContactQueryService.MainMenu(Contact.contacts, numberOfContacts);
                     }
 
                 }
@@ -38,14 +37,14 @@ namespace ContactsPro
                 }
             }
         }
-        public static (List<Contacts>, int) IfNumber(int number, List<Contacts> Contacts)
+        public static (List<Contact>, int) IfNumber(int number, List<Contact> Contacts)
         {
             int i;
             for (i = 0; i < number; )
             {
                 Console.WriteLine();
                 i++;
-                var contact = new Contacts();
+                var contact = new Contact();
                 Console.WriteLine($"Contact Number {i}.");
                 Console.Write("First Name: ");
                 contact.FirstName = Console.ReadLine();
@@ -113,7 +112,7 @@ namespace ContactsPro
             }
             return (Contacts, i);
         }
-        public static (List<Contacts>,int) IfSkip(List<Contacts> Contacts)
+        public static (List<Contact>,int) IfSkip(List<Contact> Contacts)
         {
             Console.WriteLine();
             int i = 0;
@@ -121,7 +120,7 @@ namespace ContactsPro
             do
             {
                 i++;
-                var contact = new Contacts();
+                var contact = new Contact();
                 Console.WriteLine($"Contact Number {i}.");
                 Console.Write("First Name: ");
                 contact.FirstName = Console.ReadLine();
@@ -190,7 +189,7 @@ namespace ContactsPro
             } while (result == "yes");
             return (Contacts, i);
         }
-        public static (List<Contacts>, int) MainMenu(List<Contacts> Contacts,int numberOfContacts)
+        public static (List<Contact>, int) MainMenu(List<Contact> Contacts,int numberOfContacts)
         {
             Messages.MainSection();
             string result = Console.ReadLine();

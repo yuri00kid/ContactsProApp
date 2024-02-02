@@ -53,21 +53,16 @@ namespace ContactsPro
         }
         public static void AddSection()
         {
-            Console.WriteLine();
-            Console.WriteLine("1.Add Contact to List. \n2.Add Contact to Favorite List.\n3.Return to Main Menu.");
+            Console.WriteLine("\n1.Add Contact to List. \n2.Add Contact to Favorite List.\n3.Return to Main Menu.");
             Console.Write("Type: ");
         }
         public static void OperationCancelled()
         {
-            Console.WriteLine();
-            Console.WriteLine("!!! Operation Cancelled !!!");
-            Console.WriteLine();
+            Console.WriteLine("\n!!! Operation Cancelled !!!\n");
         }
         public static void EmptyList()
         {
-            Console.WriteLine();
-            Console.WriteLine("List is Empty !");
-            Console.WriteLine();
+            Console.WriteLine("\nList is Empty !\n");
         }
         public static void Cancell()
         {
