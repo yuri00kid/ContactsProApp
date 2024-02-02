@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ContactsPro
 {
-    internal class ContactCommandService
+    public class ContactCommandService
     {
-        public static (List<Contacts>, int) AddSection(List<Contacts> Contacts, int numberOfContacts)
+        public static (List<Contact>, int) AddSection(List<Contact> Contacts, int numberOfContacts)
         {
             string result = IO_Service.AddSectionResult();
             switch (result)
@@ -31,13 +31,13 @@ namespace ContactsPro
             }
             return (Contacts, numberOfContacts);
         }
-        public static (List<Contacts>,int) AddContact(List<Contacts> Contacts, int numberOfContacts)
+        public static (List<Contact>,int) AddContact(List<Contact> Contacts, int numberOfContacts)
         {
             string resultLoop;
             do
             {
                 numberOfContacts++;
-                var contact = new Contacts();
+                var contact = new Contact();
                 Messages.Cancell();
                 Console.WriteLine();
                 Console.WriteLine($"Contact Number {numberOfContacts}.");
@@ -174,7 +174,7 @@ namespace ContactsPro
             } while (resultLoop == "yes");
             return (Contacts, numberOfContacts);
         }
-        public static List<Contacts> AddFavorite(List<Contacts> Contacts)
+        public static List<Contact> AddFavorite(List<Contact> Contacts)
         {
             while (true)
             {
@@ -224,7 +224,7 @@ namespace ContactsPro
             }
             return Contacts;
         }
-        public static (List<Contacts>, int) RemoveSection(List<Contacts> Contacts, int numberOfContacts)
+        public static (List<Contact>, int) RemoveSection(List<Contact> Contacts, int numberOfContacts)
         {
             string result = IO_Service.RemoveSectionResult();
             switch (result)
@@ -253,45 +253,60 @@ namespace ContactsPro
             return (Contacts, numberOfContacts);
           
         }
-        public static (List<Contacts>, int) RemoveContact(List<Contacts> Contacts, int numberOfContacts, int removeNumber)
+
+
+        public static int RemoveContact(int[] removeNumbers)
         {
-            int count = 0;
-            foreach (var contact in Contacts)
+            foreach (var removeNumber in removeNumbers)
             {
-                count++;
-                if (count == removeNumber)
+                var removedList = new List<Contact>();
+                foreach (var contact in Contact.contacts)
                 {
-                    Console.WriteLine();
-                    Console.WriteLine("You chose:");
+                    if (contact == Contact.contacts[removeNumber - 1])
+                    {
+                        removedList.Add(contact);
+                    }
+                }
+                Console.WriteLine();
+                Console.WriteLine("You chose:");
+
+                foreach (var removedItem in removedList)
+                {    
                     Console.WriteLine($"{count}. Full Name : {contact.FirstName} {contact.LastName} // Age: {contact.Age}" +
                         $" // Phone Number: {contact.PhoneNum} // City: {contact.City} // Favorite Contact: {contact.FavoriteContact}");
-                    string resultSure = IO_Service.SureResult();
-                    if (resultSure == "yes")
-                    {
-                        Console.WriteLine($"Contact: {contact.FirstName} {contact.LastName} Successfully removed from List .");
-                        Contacts.Remove(contact);
-                        numberOfContacts -= numberOfContacts;
-                        break;
-                    }
-                    else
-                    {
-                        Messages.OperationCancelled();
-                        break;
-                    }
-
+                    
                 }
-                else if (removeNumber == -1)
+                string resultSure = IO_Service.SureResult();
+                if (resultSure == "yes")
+                {
+                    foreach(var contact in Contact.contacts)
+                    {
+                        foreach (var removedContact in removedList)
+                        {
+                            if(contact == removedContact)
+                                Contact.contacts.Remove(contact);
+                        }
+                    }
+                    Console.WriteLine($"Contact: {contact.FirstName} {contact.LastName} Successfully removed from List .");
+                    break;
+                }
+                else
                 {
                     Messages.OperationCancelled();
                     break;
                 }
-
+                    else if (removeNumber == -1)
+                    {
+                        Messages.OperationCancelled();
+                        break;
+                    }
             }
+            
             Console.WriteLine();
             
             return (Contacts, numberOfContacts);
         }
-        public static List<Contacts> RemoveFavorite(List<Contacts> Contacts)
+        public static List<Contact> RemoveFavorite(List<Contact> Contacts)
         {
             while (true)
             {

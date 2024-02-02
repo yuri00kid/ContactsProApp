@@ -8,7 +8,7 @@ namespace ContactsPro
 {
     internal class ShowResult
     {
-        public static void AllResult(List<Contacts> Contacts)
+        public static void AllResult(List<Contact> Contacts)
         {
             int count = 0;
             Console.WriteLine("List:-----ALL RESULT-----");
@@ -25,7 +25,7 @@ namespace ContactsPro
             Console.WriteLine();
 
         }
-        public static int FavoriteResult(List<Contacts> Contacts)
+        public static int FavoriteResult(List<Contact> Contacts)
         {
             int count = 0;
             Console.WriteLine("List:-----FAVORITE RESULT-----");
@@ -45,7 +45,7 @@ namespace ContactsPro
             Console.WriteLine();
             return count;
         }
-        public static int NonFavoriteResult(List<Contacts> Contacts)
+        public static int NonFavoriteResult(List<Contact> Contacts)
         {
             int count = 0;
             Console.WriteLine("List:-----NON FAVORITE RESULT-----");
